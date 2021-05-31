@@ -1,5 +1,5 @@
 #pragma once
-#include "tutNode.h"
+#include "../tutNode.h"
 
 enum tutSQStatus
 {
