@@ -1,5 +1,5 @@
 #pragma once
-#include "../tutNode.h"
+#include "tutLinearNode.h"
 
 enum tutLinearStatus
 {
@@ -12,10 +12,10 @@ enum tutLinearStatus
 struct tutLinear
 {
 	int MaxCount , Count ;
-	struct tutNode *FirstNode , *LastNode ;
+	struct tutLinearNode *FirstLinearNode , *LastLinearNode ;
 } ;
 
-int tutLinear_pushFirstNode( struct tutLinear *Linear , struct tutNode *NewNode ) ;
-int tutLinear_pushLastNode( struct tutLinear *Linear , struct tutNode *NewNode ) ;
-int tutLinear_popFirstNode( struct tutLinear *Linear , struct tutNode **UsedNode ) ;
-int tutLinear_popLastNode( struct tutLinear *Linear , struct tutNode **UsedNode ) ;
+int tutLinear_pushFirstNode( struct tutLinear *Linear , struct tutLinearNode *NewLinearNode ) ;
+int tutLinear_pushLastNode( struct tutLinear *Linear , struct tutLinearNode *NewLinearNode ) ;
+int tutLinear_popFirstNode( struct tutLinear *Linear , struct tutLinearNode **UsedLinearNode ) ;
+int tutLinear_popLastNode( struct tutLinear *Linear , struct tutLinearNode **UsedLinearNode ) ;
