@@ -8,16 +8,16 @@ int tutLinear_pushFirstNode( struct tutLinear *Linear , struct tutLinearNode *Ne
 		return tutLinearStatusOverflow ;
 	
 	NewLinearNode->Left = NULL ;
-	NewLinearNode->Right = Linear->FirstNode ;
-	if( Linear->FirstNode == NULL )
+	NewLinearNode->Right = Linear->FirstLinearNode ;
+	if( Linear->FirstLinearNode == NULL )
 	{
-		Linear->FirstNode = NewLinearNode ;
-		Linear->LastNode = NewLinearNode ;
+		Linear->FirstLinearNode = NewLinearNode ;
+		Linear->LastLinearNode = NewLinearNode ;
 	}
 	else
 	{
-		Linear->FirstNode->Left = NewLinearNode ;
-		Linear->FirstNode = NewLinearNode ;
+		Linear->FirstLinearNode->Left = NewLinearNode ;
+		Linear->FirstLinearNode = NewLinearNode ;
 	}
 	Linear->Count ++ ;
 	
@@ -30,17 +30,17 @@ int tutLinear_pushLastNode( struct tutLinear *Linear , struct tutLinearNode *New
 	else if( Linear->Count >= Linear->MaxCount )
 		return tutLinearStatusOverflow ;
 	
-	NewLinearNode->Left = Linear->LastNode ;
+	NewLinearNode->Left = Linear->LastLinearNode ;
 	NewLinearNode->Right = NULL ;
-	if( Linear->LastNode == NULL )
+	if( Linear->LastLinearNode == NULL )
 	{
-		Linear->FirstNode = NewLinearNode ;
-		Linear->LastNode = NewLinearNode ;
+		Linear->FirstLinearNode = NewLinearNode ;
+		Linear->LastLinearNode = NewLinearNode ;
 	}
 	else
 	{
-		Linear->LastNode->Right = NewLinearNode ;
-		Linear->LastNode = NewLinearNode ;
+		Linear->LastLinearNode->Right = NewLinearNode ;
+		Linear->LastLinearNode = NewLinearNode ;
 	}
 	Linear->Count ++ ;
 	
@@ -53,12 +53,12 @@ int tutLinear_popFirstNode( struct tutLinear *Linear , struct tutLinearNode **Us
 	else if( Linear->Count <= 0 )
 		return tutLinearStatusUnderflow ;
 	
-	UsedLinearNode = &Linear->FirstNode ;
-	Linear->FirstNode = Linear->FirstNode->Right ;
-	if( Linear->FirstNode == NULL )
-		Linear->LastNode = NULL ;
+	UsedLinearNode = &Linear->FirstLinearNode ;
+	Linear->FirstLinearNode = Linear->FirstLinearNode->Right ;
+	if( Linear->FirstLinearNode == NULL )
+		Linear->LastLinearNode = NULL ;
 	else
-		Linear->FirstNode->Left = NULL ;
+		Linear->FirstLinearNode->Left = NULL ;
 	Linear->Count -- ;
 	
 	return tutLinearStatusOk ;
@@ -70,12 +70,12 @@ int tutLinear_popLastNode( struct tutLinear *Linear , struct tutLinearNode **Use
 	else if( Linear->Count <= 0 )
 		return tutLinearStatusUnderflow ;
 	
-	UsedLinearNode = &Linear->LastNode ;
-	Linear->LastNode = Linear->LastNode->Left ;
-	if( Linear->LastNode == NULL )
-		Linear->FirstNode = NULL ;
+	UsedLinearNode = &Linear->LastLinearNode ;
+	Linear->LastLinearNode = Linear->LastLinearNode->Left ;
+	if( Linear->LastLinearNode == NULL )
+		Linear->FirstLinearNode = NULL ;
 	else
-		Linear->LastNode->Right = NULL ;
+		Linear->LastLinearNode->Right = NULL ;
 	Linear->Count -- ;
 	
 	return tutLinearStatusOk ;
