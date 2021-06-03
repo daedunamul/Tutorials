@@ -13,7 +13,7 @@ struct tutLinearNodePool* tutLinearNodePool_create( int MaxCount )
 		free( NewLinearNodePool ) ;
 		return NULL ;
 	}
-	NewLinearNodePool->LastAddress = NewLinearNodePool->FirstAddress * ( MaxCount - 1 ) ;
+	NewLinearNodePool->LastAddress = NewLinearNodePool->FirstAddress + ( MaxCount - 1 ) ;
 	NewLinearNodePool->LinearNodeStack = ( struct tutLinearNode** )malloc( MaxCount * sizeof( struct tutLinearNode* ) ) ;
 	if( NewLinearNodePool->LinearNodeStack == NULL )
 	{
