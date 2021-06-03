@@ -47,7 +47,7 @@ struct tutLinearNode* tutLinearNodePool_allocate( struct tutLinearNodePool* Line
 void tutLinearNodePool_deallocate( struct tutLinearNodePool* LinearNodePool , struct tutLinearNode *UsedLinearNode )
 {
 	if( LinearNodePool == NULL || LinearNodePool->Count >= LinearNodePool->MaxCount )
-		return NULL ;
+		return ;
 	
 	LinearNodePool->LinearNodeStack[ LinearNodePool->Count ] = UsedLinearNode ;
 	LinearNodePool->Count ++ ;
