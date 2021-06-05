@@ -3,7 +3,7 @@
 
 struct tutTreeNode
 {
-	int Value , MaxDegree , Degree ;
+	int Value , Degree ;
 	struct tutTreeNode *Super , *Sub , *Left , *Right ;
 } ;
 struct tutTreeNodePool
