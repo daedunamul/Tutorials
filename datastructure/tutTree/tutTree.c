@@ -27,7 +27,7 @@ void tutTree_travel( struct tutTreeNode *RootNode , void *Data , void ( *TravelF
 	}
 	
 	MovingUp : 
-	// 
+	// Super
 	if( ThisNode->Super != NULL )
 	{
 		ThisNode = ThisNode->Super ;
