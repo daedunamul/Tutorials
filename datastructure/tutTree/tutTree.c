@@ -28,7 +28,7 @@ void tutTree_travel( struct tutTreeNode *RootNode , void *Data , void ( *TravelF
 	if( ThisNode->Super != NULL )
 	{
 		ThisNode = ThisNode->Super ;
-		goto MovingRight ;
+		goto MovingToRight ;
 	}
 	
 	// no nodes to visit
