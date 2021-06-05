@@ -10,24 +10,21 @@ void tutTree_travel( struct tutTreeNode *RootNode , void *Data , void ( *TravelF
 	Visiting : 
 	TravelFx( ThisNode , Data ) ;
 	
-	MovingDown : 
-	// Sub
+	MovingToSub : 
 	if( ThisNode->Sub != NULL )
 	{
 		ThisNode = ThisNode->Sub ;
 		goto Visiting ;
 	}
 	
-	MovingRight : 
-	// Right
+	MovingToRight : 
 	if( ThisNode->Right != NULL )
 	{
 		ThisNode = ThisNode->Right ;
 		goto Visiting ;
 	}
 	
-	MovingUp : 
-	// Super
+	MovingToSuper : 
 	if( ThisNode->Super != NULL )
 	{
 		ThisNode = ThisNode->Super ;
