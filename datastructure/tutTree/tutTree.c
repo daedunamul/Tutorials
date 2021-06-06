@@ -2,7 +2,7 @@
 
 void tutTree_travel( struct tutTreeNode *RootNode , void *Data , void ( *TravelFx )( struct tutTreeNode *ThisNode , void *Data ) )
 {
-	if( RootNode == NULL || NodePool == NULL )
+	if( RootNode == NULL )
 		return ;
 	
 	struct tutTreeNode *ThisNode = RootNode ;
@@ -56,6 +56,22 @@ void tutTree_push( struct tutTreeNode *ThisNode , struct tutTreeNodePool *NodePo
 	ThisNode->Sub = NewNode ;
 	ThisNode->Degree ++ ;
 }
-void tutTree_pop( struct tutTreeNode *ThisNode , void *Data )
+void tutTree_pop( struct tutTreeNode *ThisNode , struct tutTreeNodePool *NodePool )
 {
+	if( ThisNode == NULL || NodePool == NULL )
+		return ;
+	
+	if( ThisNode->Super != NULL )
+	{
+		ThisNode->Super->Degree -- ;
+		ThisNode->Super = NULL ;
+	}
+	tutTree_travel( ThisNode , NodePool , tutTree_flush ) ;
+}
+void tutTree_flush( struct tutTreeNode *ThisNode , void *Data )
+{
+	if( Data == NULL )
+		return ;
+	
+	tutTreeNodePool_deallocate( ( struct tutTreeNodePool* )Data , ThisNode ) ;
 }
