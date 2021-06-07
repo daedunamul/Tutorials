@@ -75,54 +75,39 @@ void tutBST_postorder( struct tutTreeNode *RootNode , void *Data , void ( *Trave
 	// no nodes to visit
 }
 
-void tutBST_push( struct tutTreeNode *ThisNode , struct tutTreeNodePool *NodePool , int Value )
+void tutBST_push( struct tutTreeNode *RootNode , struct tutTreeNodePool *NodePool , int Value )
 {
-	if
-	( 
-		( ThisNode == NULL || NodePool == NULL )
-		||
-		( Flag == false && ThisNode->Left != NULL )
-		||
-		( Flag == true && ThisNode->Right != NULL )
-		||
-		( ThisNode->Value == Value )
-	)
+	if( RootNode == NULL || NodePool == NULL )
 		return ;
 	
-	struct tutTreeNode *NewNode ;
+	struct tutTreeNode *ThisNode = RootNode , *SuperNode , *NewNode , **NodePointer ;
+	
+	while( ThisNode != NULL )
+	{
+		SuperNode = ThisNode ;
+		if( ThisNode->Value < Value )
+			NodePointer = &ThisNode->Left ;
+		else if( ThisNode->Value > Value )
+			NodePointer = &ThisNode->Right ;
+		else
+			return ;
+		ThisNode = *NodePointer ;
+	}
 	
 	NewNode = tutTreeNodePool_allocate( NodePool ) ;
 	if( NewNode == NULL )
 		return ;
 	NewNode->Value = Value ;
 	NewNode->Degree = 0 ;
-	NewNode->Super = ThisNode ;
+	NewNode->Super = SuperNode ;
 	NewNode->Sub = NULL ;
 	NewNode->Left = NULL ;
 	NewNode->Right = NULL ;
 	
-	if( ThisNode->Value < Value )
-		ThisNode->Right = NewNode ;
-	else if( ThisNode->Value < Value )
-		ThisNode->Left = NewNode ;
-	ThisNode->Degree ++ ;
+	SuperNode->Degree ++ ;
+	*NodePointer = NewNode ;
 }
-void tutBST_pop( struct tutTreeNode *ThisNode , bool Flag , struct tutTreeNodePool *NodePool )
+void tutBST_pop( struct tutTreeNode *RootNode , bool Flag , struct tutTreeNodePool *NodePool )
 {
-	if
-	( 
-		( ThisNode == NULL || NodePool == NULL )
-		||
-		( Flag == false && ThisNode->Left == NULL )
-		||
-		( Flag == true && ThisNode->Right == NULL )
-	)
-		return ;
-	
-	if( ThisNode->Super != NULL )
-	{
-		ThisNode->Super->Degree -- ;
-		ThisNode->Super = NULL ;
-	}
-	
+
 }
