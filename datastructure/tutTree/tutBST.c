@@ -108,8 +108,8 @@ void tutBST_push( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePo
 	if( SuperNode != NULL )
 		SuperNode->Degree ++ ;
 }
-void tutBST_pop( struct tutTreeNode **RootNode , bool Flag , struct tutTreeNodePool *NodePool )
+void tutBST_pop( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePool )
 {
-	if( RootNode == NULL || NodePool == NULL )
+	if( *RootNode == NULL || NodePool == NULL )
 		return ;
 }
