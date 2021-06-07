@@ -75,12 +75,12 @@ void tutBST_postorder( struct tutTreeNode *RootNode , void *Data , void ( *Trave
 	// no nodes to visit
 }
 
-void tutBST_push( struct tutTreeNode *RootNode , struct tutTreeNodePool *NodePool , int Value )
+void tutBST_push( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePool , int Value )
 {
-	if( RootNode == NULL || NodePool == NULL )
+	if( NodePool == NULL )
 		return ;
 	
-	struct tutTreeNode *ThisNode = RootNode , *SuperNode , *NewNode , **NodePointer ;
+	struct tutTreeNode *ThisNode = *RootNode , *SuperNode = NULL , **NodePointer = RootNode , *NewNode ;
 	
 	while( ThisNode != NULL )
 	{
@@ -104,10 +104,12 @@ void tutBST_push( struct tutTreeNode *RootNode , struct tutTreeNodePool *NodePoo
 	NewNode->Left = NULL ;
 	NewNode->Right = NULL ;
 	
-	SuperNode->Degree ++ ;
 	*NodePointer = NewNode ;
+	if( SuperNode != NULL )
+		SuperNode->Degree ++ ;
 }
 void tutBST_pop( struct tutTreeNode *RootNode , bool Flag , struct tutTreeNodePool *NodePool )
 {
-
+	if( RootNode == NULL || NodePool == NULL )
+		return ;
 }
