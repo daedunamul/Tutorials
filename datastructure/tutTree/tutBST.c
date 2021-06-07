@@ -1,4 +1,5 @@
 #include "tutBST.h"
+
 void tutBST_preorder( struct tutTreeNode *RootNode , void *Data , void ( *TravelFx )( struct tutTreeNode *ThisNode , void *Data ) )
 {
 	if( RootNode == NULL )
@@ -74,7 +75,7 @@ void tutBST_postorder( struct tutTreeNode *RootNode , void *Data , void ( *Trave
 	// no nodes to visit
 }
 
-void tutBST_push( struct tutTreeNode *ThisNode , bool Flag , struct tutTreeNodePool *NodePool , int Value )
+void tutBST_push( struct tutTreeNode *ThisNode , struct tutTreeNodePool *NodePool , int Value )
 {
 	if
 	( 
@@ -83,6 +84,8 @@ void tutBST_push( struct tutTreeNode *ThisNode , bool Flag , struct tutTreeNodeP
 		( Flag == false && ThisNode->Left != NULL )
 		||
 		( Flag == true && ThisNode->Right != NULL )
+		||
+		( ThisNode->Value == Value )
 	)
 		return ;
 	
@@ -98,12 +101,28 @@ void tutBST_push( struct tutTreeNode *ThisNode , bool Flag , struct tutTreeNodeP
 	NewNode->Left = NULL ;
 	NewNode->Right = NULL ;
 	
-	if( Flag )
+	if( ThisNode->Value < Value )
 		ThisNode->Right = NewNode ;
-	else
+	else if( ThisNode->Value < Value )
 		ThisNode->Left = NewNode ;
 	ThisNode->Degree ++ ;
 }
 void tutBST_pop( struct tutTreeNode *ThisNode , bool Flag , struct tutTreeNodePool *NodePool )
 {
+	if
+	( 
+		( ThisNode == NULL || NodePool == NULL )
+		||
+		( Flag == false && ThisNode->Left == NULL )
+		||
+		( Flag == true && ThisNode->Right == NULL )
+	)
+		return ;
+	
+	if( ThisNode->Super != NULL )
+	{
+		ThisNode->Super->Degree -- ;
+		ThisNode->Super = NULL ;
+	}
+	
 }
