@@ -80,18 +80,18 @@ void tutBST_push( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePo
 	if( NodePool == NULL )
 		return ;
 	
-	struct tutTreeNode *ThisNode = *RootNode , *SuperNode = NULL , **NewNodePointer = RootNode , *NewNode ;
+	struct tutTreeNode *ThisNode = *RootNode , **ThisNodePointer = RootNode , *SuperNode = NULL , *NewNode ;
 	
 	while( ThisNode != NULL )
 	{
 		SuperNode = ThisNode ;
 		if( ThisNode->Value < Value )
-			NewNodePointer = &ThisNode->Left ;
+			ThisNodePointer = &ThisNode->Left ;
 		else if( ThisNode->Value > Value )
-			NewNodePointer = &ThisNode->Right ;
+			ThisNodePointer = &ThisNode->Right ;
 		else
 			return ;
-		ThisNode = *NewNodePointer ;
+		ThisNode = *ThisNodePointer ;
 	}
 	
 	NewNode = tutTreeNodePool_allocate( NodePool ) ;
@@ -104,29 +104,52 @@ void tutBST_push( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePo
 	NewNode->Left = NULL ;
 	NewNode->Right = NULL ;
 	
-	*NewNodePointer = NewNode ;
-	if( SuperNode != NULL )
-		SuperNode->Degree ++ ;
+	*ThisNodePointer = NewNode ;
 }
 void tutBST_pop( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePool )
 {
 	if( *RootNode == NULL || NodePool == NULL )
 		return ;
 	
-	struct tutTreeNode *ThisNode = *RootNode , **SuperNodePointer = RootNode ;
+	struct tutTreeNode *ThisNode = *RootNode , **ThisNodePointer = RootNode , *CandidateNode ;
 	
 	do
 	{
 		if( ThisNode->Value < Value )
-			SuperNodePointer = &ThisNode->Left ;
+			ThisNodePointer = &ThisNode->Left ;
 		else if( ThisNode->Value > Value )
-			SuperNodePointer = &ThisNode->Right ;
+			ThisNodePointer = &ThisNode->Right ;
 		else
 		{
+			// picking candidate node
+			if( ThisNode->Left == NULL )
+			{
+				*ThisNodePointer = ThisNode->Right ;
+				if( ThisNode->Right != NULL )
+					ThisNode->Right->Super = ThisNode->Super ;
+			}
+			else
+			{
+				for( CandidateNode = ThisNode->Left ; CandidateNode->Right != NULL ; CandidateNode = CandidateNode->Right ) ;
+				
+				if( CandidateNode != ThisNode->Left )
+				{
+					CandidateNode->Super->Right = CandidateNode->Left ;
+					if( CandidateNode->Left != NULL )
+						CandidateNode->Left->Super = CandidateNode->Super ;
+					CandidateNode->Left = ThisNode->Left ;
+				}
+				CandidateNode->Right = ThisNode->Right ;
+				CandidateNode->Super = ThisNode->Super ;
+				ThisNode->Right->Super = CandidateNode ;
+				*ThisNodePointer = CandidateNode ;
+			}
 			
+			// deallocating this node
 			tutTreeNodePool_deallocate( NodePool , ThisNode ) ;
 		}
-		ThisNode = *SuperNodePointer ;
+		
+		ThisNode = *ThisNodePointer ;
 	}
 	while( ThisNode != NULL ) ;
 }
