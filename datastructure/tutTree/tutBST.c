@@ -37,7 +37,40 @@ void tutBST_preorder( struct tutTreeNode *RootNode , void *Data , void ( *Travel
 }
 void tutBST_inorder( struct tutTreeNode *RootNode , void *Data , void ( *TravelFx )( struct tutTreeNode *ThisNode , void *Data ) )
 {
-
+	if( RootNode == NULL )
+		return ;
+	
+	struct tutTreeNode *ThisNode = RootNode ;
+	
+	Moving : 
+	if( ThisNode->Left != NULL )
+	{
+		ThisNode = ThisNode->Left ;
+		goto Moving ;
+	}
+	TravelFx( ThisNode , Data ) ;
+	
+	if( ThisNode->Right != NULL )
+	{
+		ThisNode = ThisNode->Right ;
+		goto Moving ;
+	}
+	
+	while( ThisNode->Super != NULL )
+	{
+		if( ThisNode->Super->Right != NULL && ThisNode->Super->Right != ThisNode )
+		{
+			TravelFx( ThisNode->Super , Data ) ;
+			ThisNode = ThisNode->Super->Right ;
+			goto Moving ;
+		}
+		else if( ThisNode->Super->Right == NULL )
+			TravelFx( ThisNode->Super , Data ) ;
+		
+		ThisNode = ThisNode->Super ;
+	}
+	
+	// no nodes to visit
 }
 void tutBST_postorder( struct tutTreeNode *RootNode , void *Data , void ( *TravelFx )( struct tutTreeNode *ThisNode , void *Data ) )
 {
