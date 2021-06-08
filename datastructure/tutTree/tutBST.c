@@ -112,4 +112,21 @@ void tutBST_pop( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePoo
 {
 	if( *RootNode == NULL || NodePool == NULL )
 		return ;
+	
+	struct tutTreeNode *ThisNode = *RootNode , **SuperNodePointer = RootNode ;
+	
+	do
+	{
+		if( ThisNode->Value < Value )
+			SuperNodePointer = &ThisNode->Left ;
+		else if( ThisNode->Value > Value )
+			SuperNodePointer = &ThisNode->Right ;
+		else
+		{
+			
+			tutTreeNodePool_deallocate( NodePool , ThisNode ) ;
+		}
+		ThisNode = *SuperNodePointer ;
+	}
+	while( ThisNode != NULL ) ;
 }
