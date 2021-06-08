@@ -106,7 +106,7 @@ void tutBST_push( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePo
 	
 	*ThisNodePointer = NewNode ;
 }
-void tutBST_pop( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePool )
+void tutBST_pop( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePool , int Value )
 {
 	if( *RootNode == NULL || NodePool == NULL )
 		return ;
