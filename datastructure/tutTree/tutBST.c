@@ -85,9 +85,9 @@ void tutBST_push( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePo
 	while( ThisNode != NULL )
 	{
 		SuperNode = ThisNode ;
-		if( ThisNode->Value < Value )
+		if( Value < ThisNode->Value )
 			ThisNodePointer = &ThisNode->Left ;
-		else if( ThisNode->Value > Value )
+		else if( Value > ThisNode->Value )
 			ThisNodePointer = &ThisNode->Right ;
 		else
 			return ;
@@ -115,9 +115,9 @@ void tutBST_pop( struct tutTreeNode **RootNode , struct tutTreeNodePool *NodePoo
 	
 	do
 	{
-		if( ThisNode->Value < Value )
+		if( Value < ThisNode->Value )
 			ThisNodePointer = &ThisNode->Left ;
-		else if( ThisNode->Value > Value )
+		else if( Value > ThisNode->Value )
 			ThisNodePointer = &ThisNode->Right ;
 		else
 		{
