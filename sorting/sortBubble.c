@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 int main( int argc , char **argv )
 {
 	int Count1 , Count2 , Count3 , Temp , ArrayToSort[ 10 ] ;
