@@ -1,7 +1,7 @@
 #include <stdio.h>
 int main( int argc , char **argv )
 {
-	int Count1 , Count2 , Temp , ArrayToSort[ 10 ] ;
+	int Count1 , Count2 , Count3 , Temp , ArrayToSort[ 10 ] ;
 	
 	for( Count1 = 0 ; Count1 < 10 ; Count1 ++ )
 	{
@@ -22,11 +22,11 @@ int main( int argc , char **argv )
 				ArrayToSort[ Count2 + 1 ] = Temp ;
 			}
 		}
+		
+		for( Count3 = 0 ; Count3 < 10 ; Count3 ++ )
+			printf( "%d " , ArrayToSort[ Count3 ] ) ;
+		printf( "\n" ) ;
 	}
-	
-	for( Count1 = 0 ; Count1 < 10 ; Count1 ++ )
-		printf( "%d " , ArrayToSort[ Count1 ] ) ;
-	printf( "\n" ) ;
 	
 	return 0 ;
 }
