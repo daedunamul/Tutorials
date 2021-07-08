@@ -39,11 +39,11 @@ int main( int argc , char **argv )
 			ArrayToSort[ LeftIndex ] = ArrayToSort[ RightIndex ] ;
 			ArrayToSort[ RightIndex ] = Temp ;
 		}
-		// swapping Pivot for Left
+		// swapping Pivot for Right
 		Temp = ArrayToSort[ PivotIndex ] ; 
-		ArrayToSort[ PivotIndex ] = ArrayToSort[ LeftIndex ] ;
-		ArrayToSort[ LeftIndex ] = Temp ;
-		PivotIndex = LeftIndex ;
+		ArrayToSort[ PivotIndex ] = ArrayToSort[ RightIndex ] ;
+		ArrayToSort[ RightIndex ] = Temp ;
+		PivotIndex = RightIndex ;
 		
 		// push
 		if( PivotIndex - StartIndex > 1 )
